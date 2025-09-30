@@ -3,7 +3,9 @@
 const logo = document.querySelector('.logo');
 
 const promise1 = new Promise((resolve) => {
-  logo.addEventListener('click', resolve);
+  if (logo) {
+    logo.addEventListener('click', resolve, { once: true });
+  }
 });
 
 const promise2 = new Promise((resolve, reject) => {
@@ -14,7 +16,11 @@ function showMessage(text, extraClass = '') {
   const div = document.createElement('div');
 
   div.className = `message ${extraClass}`.trim();
-  div.textContent = text;
+
+  div.textContent =
+    text === 'Promise was resolved!'
+      ? 'Promise was resolved!'
+      : 'Promise was rejected!';
   document.body.appendChild(div);
 }
 
